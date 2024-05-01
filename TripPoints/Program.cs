@@ -10,8 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+//builder.Services.AddSwaggerGen();
+//Add Swagger with a Document as a XML File
+builder.Services.AddSwaggerGen(c =>
+{
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "TripPoints.xml"), true);
+});
 /////////
 builder.Services.AddDbContext<TripDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=.;Initial Catalog=TripDbContext;Trusted_Connection=True;TrustServerCertificate=True;")));
